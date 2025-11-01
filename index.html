@@ -42,6 +42,31 @@
     .work-link{background:#151515}
     .work-link:hover{background:#1a1a1a}
   }
+
+/* ── 書籍リンク（表紙風） ───────────────────────── */
+.books{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-top:14px}
+.book{
+  position:relative; display:block; text-decoration:none; color:inherit;
+  background:var(--card); border:1.5px solid var(--line); border-radius:10px;
+  padding:16px 14px 18px 20px; box-shadow:0 2px 0 rgba(0,0,0,.03);
+  transition:transform .12s ease, box-shadow .12s ease, background .2s;
+}
+.book:before{ /* 背表紙の雰囲気 */
+  content:""; position:absolute; left:0; top:0; bottom:0; width:10px;
+  background:linear-gradient(90deg, rgba(0,0,0,.06), transparent);
+  border-top-left-radius:10px; border-bottom-left-radius:10px;
+}
+.book:hover{transform:translateY(-2px); box-shadow:0 6px 14px rgba(0,0,0,.06)}
+.book .title{font-weight:700; font-size:1.05rem; line-height:1.35; margin:0 0 6px}
+.book .author{color:var(--sub); font-size:.92rem}
+
+/* ダークモード調整 */
+@media (prefers-color-scheme: dark){
+  .book{box-shadow:none}
+  .book:before{background:linear-gradient(90deg, rgba(255,255,255,.06), transparent)}
+}
+
+  
 </style>
 </head>
 <body>
@@ -49,13 +74,23 @@
     <div class="wrap">
       <h1>気分で選ばない読書地図</h1>
       <p class="tagline">気分語ではなく「事実」で探す、すやネコ文庫の小さなデータ図鑑。</p>
-      <div class="hero">
-        <a class="btn primary" href="index.html">ホーム</a>
-        <a class="btn" href="works/hanin-ni-tsugu.html">『犯人に告ぐ』の作品カード</a>
-        <a class="btn" href="works/onnatachi-no-jihad.html">『女たちのジハード』の作品カード</a>
-        <a class="btn" href="https://esortseld.github.io/suyaneko_bunko/">すやネコ文庫（トップ）</a>
-      </div>
-    </div>
+    <div class="hero">
+  <a class="btn primary" href="./">ホーム</a>
+  <a class="btn" href="https://esortseld.github.io/suyaneko_bunko/">すやネコ文庫（トップ）</a>
+</div>
+
+<!-- 作品リンク：表紙風の長方形カード（タイトル＋著者だけ） -->
+<div class="books">
+  <a class="book" href="works/hanin-ni-tsugu.html">
+    <div class="title">犯人に告ぐ</div>
+    <div class="author">雫井 脩介</div>
+  </a>
+  <a class="book" href="works/onnatachi-no-jihad.html">
+    <div class="title">女たちのジハード</div>
+    <div class="author">篠田 節子</div>
+  </a>
+</div>
+
   </header>
 
   <main class="wrap">
@@ -91,4 +126,5 @@
   </footer>
 </body>
 </html>
+
 
