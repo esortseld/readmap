@@ -6,9 +6,11 @@
 <title>気分で選ばない読書地図 – すやネコ文庫</title>
 <meta name="description" content="気分語に頼らず、客観指標で本を探す『読書地図』。作品カードやデータへの入り口。">
 <style>
-  :root{ --bg:#faf8f6; --card:#ffffff; --ink:#222; --sub:#555; --line:#eee; --btnbg:#f3f1ef;
-         --book-w:168px;        /* 表紙カードの幅（160〜200pxで調整可） */
-         --book-ratio:2/3; }    /* 縦長比率（例：2:3） */
+  :root{
+    --bg:#faf8f6; --card:#ffffff; --ink:#222; --sub:#555; --line:#eee; --btnbg:#f3f1ef;
+    --book-w:168px;        /* 表紙カードの幅（160〜200pxで調整可） */
+    --book-ratio:2/3;      /* 縦長比率 */
+  }
   *{box-sizing:border-box}
   body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,"Noto Sans JP",sans-serif;color:var(--ink);background:var(--bg)}
   header{padding:48px 16px;background:linear-gradient(180deg,#f8efe8,transparent)}
@@ -25,13 +27,11 @@
   footer{padding:28px 16px;color:#777}
   a.inline{color:#345;text-decoration:none;border-bottom:1px solid #ccd}
 
-  /* ── 書籍リンク（固定サイズ・全冊同サイズ・縦長） ───────── */
+  /* ── 表紙カード（固定サイズ・全冊同サイズ・縦長） ───────── */
   .books{
     display:grid;
     grid-template-columns:repeat(auto-fill, minmax(var(--book-w), var(--book-w)));
-    gap:16px;
-    margin-top:14px;
-    justify-content:start;
+    gap:16px; margin-top:14px; justify-content:start;
   }
   .book{
     position:relative; display:block; width:var(--book-w);
@@ -51,12 +51,27 @@
   .book .author{color:var(--sub); font-size:.9rem; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
   .book.empty{pointer-events:none} .book.empty .title,.book.empty .author{display:none}
 
+  /* ── 帯（Obi） ─────────────────────────────── */
+  .book.has-obi::after{
+    content:""; position:absolute; left:10px; right:10px; bottom:22%;
+    height:18px; background:var(--obi-bg,#efe2c6); border:1px solid var(--obi-line,#e0d3b4);
+    border-radius:6px; box-shadow:0 1px 0 rgba(0,0,0,.06), inset 0 1px 0 rgba(255,255,255,.6);
+  }
+  .book.has-obi-line::after{
+    content:""; position:absolute; left:10px; right:10px; bottom:22%;
+    height:0; border-top:3px solid var(--obi-line,#d8caa9); border-bottom:3px solid var(--obi-line,#d8caa9);
+    padding-top:12px; border-radius:4px;
+  }
+  .obi-gold { --obi-bg:#efe2c6; --obi-line:#e0d3b4; }
+  .obi-blue { --obi-bg:#e0ecff; --obi-line:#c9dcff; }
+
   @media (prefers-color-scheme: dark){
     :root{--bg:#0f0e0e; --card:#151515; --ink:#eee; --sub:#aaa; --line:#2a2a2a; --btnbg:#1a1a1a}
     header{background:linear-gradient(180deg,#1a1816,transparent)}
     a.inline{color:#cfe2ff;border-bottom-color:#2a3f66}
     .book{box-shadow:none}
-    .book:before{background:linear-gradient(90deg, rgba(255,255,255,.06), transparent)}
+    .book.has-obi::after{background:var(--obi-bg,#3a3326); border-color:var(--obi-line,#4a4230); box-shadow:none}
+    .book.has-obi-line::after{border-color:var(--obi-line,#5a5240)}
   }
 </style>
 </head>
@@ -71,13 +86,13 @@
         <a class="btn" href="https://esortseld.github.io/suyaneko_bunko/">すやネコ文庫（トップ）</a>
       </div>
 
-      <!-- 表紙カード（固定サイズ・タイトル＋著者のみ） -->
+      <!-- 表紙カード（固定サイズ・帯つき） -->
       <div class="books">
-        <a class="book" href="works/hanin-ni-tsugu.html">
+        <a class="book has-obi obi-gold" href="works/hanin-ni-tsugu.html">
           <div class="title">犯人に告ぐ</div>
           <div class="author">雫井 脩介</div>
         </a>
-        <a class="book" href="works/onnatachi-no-jihad.html">
+        <a class="book has-obi-line obi-blue" href="works/onnatachi-no-jihad.html">
           <div class="title">女たちのジハード</div>
           <div class="author">篠田 節子</div>
         </a>
