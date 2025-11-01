@@ -27,6 +27,11 @@
   .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px}
   .card h3{margin:0 0 6px;font-size:1.05rem}
   .card p{margin:0;color:var(--sub)}
+  .works{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin-top:8px}
+  .work-link{display:block;text-decoration:none;color:inherit;border:1px solid var(--line);border-radius:12px;padding:14px;background:#fff}
+  .work-link h4{margin:0 0 6px;font-size:1rem}
+  .work-link .meta{color:#666;font-size:.9rem}
+  .work-link:hover{background:#f8f7f6}
   footer{padding:28px 16px;color:#777}
   a.inline{color:#345;text-decoration:none;border-bottom:1px solid #ccd}
   @media (prefers-color-scheme: dark){
@@ -34,6 +39,8 @@
     .btn.primary{background:#152238;border-color:#2a3f66;color:#cfe2ff}
     a.inline{color:#cfe2ff;border-bottom-color:#2a3f66}
     header{background:linear-gradient(180deg,#1a1816,transparent)}
+    .work-link{background:#151515}
+    .work-link:hover{background:#1a1a1a}
   }
 </style>
 </head>
@@ -45,8 +52,7 @@
       <div class="hero">
         <a class="btn primary" href="index.html">ホーム</a>
         <a class="btn" href="works/hanin-ni-tsugu.html">『犯人に告ぐ』の作品カード</a>
-        <!-- 作品カードを増やしたら、この行の下にボタンを足していけばOK -->
-        <!-- <a class="btn" href="works/xxxxx.html">作品タイトル</a> -->
+        <a class="btn" href="works/onnatachi-no-jihad.html">『女たちのジハード』の作品カード</a>
       </div>
     </div>
   </header>
@@ -59,8 +65,17 @@
       </article>
 
       <article class="card">
-        <h3>最新の作品カード</h3>
-        <p><a class="inline" href="works/hanin-ni-tsugu.html">『犯人に告ぐ』（雫井脩介）</a> — 双葉社／2004年7月刊。初出：小説推理（2003年2月号〜2004年2月号）。</p>
+        <h3>作品カード</h3>
+        <div class="works">
+          <a class="work-link" href="works/hanin-ni-tsugu.html">
+            <h4>『犯人に告ぐ』</h4>
+            <div class="meta">雫井脩介／双葉社／2004年7月刊　初出：小説推理（2003年2月号〜2004年2月号）</div>
+          </a>
+          <a class="work-link" href="works/onnatachi-no-jihad.html">
+            <h4>『女たちのジハード』</h4>
+            <div class="meta">篠田節子／集英社／1997年1月刊　受賞：第117回直木賞　初出：小説すばる（1994年7月〜1996年8月）</div>
+          </a>
+        </div>
       </article>
 
       <article class="card">
