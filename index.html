@@ -6,10 +6,7 @@
 <title>気分で選ばない読書地図 – すやネコ文庫</title>
 <meta name="description" content="気分語に頼らず、客観指標で本を探す『読書地図』。作品カードやデータへの入り口。">
 <style>
-  :root{
-    --bg:#faf8f6; --card:#ffffff; --ink:#222; --sub:#555;
-    --line:#eee; --accent:#2b6cb0; --btnbg:#f3f1ef;
-  }
+  :root{ --bg:#faf8f6; --card:#ffffff; --ink:#222; --sub:#555; --line:#eee; --btnbg:#f3f1ef }
   *{box-sizing:border-box}
   body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,"Noto Sans JP",sans-serif;color:var(--ink);background:var(--bg)}
   header{padding:48px 16px;background:linear-gradient(180deg,#f8efe8,transparent)}
@@ -17,56 +14,37 @@
   h1{margin:0 0 8px;font-size:clamp(1.6rem,3.5vw,2.4rem)}
   .tagline{margin:0;color:var(--sub)}
   .hero{margin-top:18px;display:flex;flex-wrap:wrap;gap:10px}
-  .btn{
-    display:inline-block;padding:12px 16px;border-radius:12px;border:1px solid var(--line);
-    background:var(--btnbg); color:var(--ink); text-decoration:none; font-weight:600;
-  }
-  .btn.primary{background:#e7f0fb;border-color:#cfe2ff;color:#134a96}
+  .btn{display:inline-block;padding:12px 16px;border-radius:12px;border:1px solid var(--line);background:var(--btnbg);color:var(--ink);text-decoration:none;font-weight:600}
   main{padding:24px 0}
   .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
   .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px}
   .card h3{margin:0 0 6px;font-size:1.05rem}
   .card p{margin:0;color:var(--sub)}
-  .works{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin-top:8px}
-  .work-link{display:block;text-decoration:none;color:inherit;border:1px solid var(--line);border-radius:12px;padding:14px;background:#fff}
-  .work-link h4{margin:0 0 6px;font-size:1rem}
-  .work-link .meta{color:#666;font-size:.9rem}
-  .work-link:hover{background:#f8f7f6}
   footer{padding:28px 16px;color:#777}
   a.inline{color:#345;text-decoration:none;border-bottom:1px solid #ccd}
+
+  /* ── 書籍リンク（表紙風） ───────────────────────── */
+  .books{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-top:14px}
+  .book{
+    position:relative; display:block; text-decoration:none; color:inherit;
+    background:var(--card); border:1.5px solid var(--line); border-radius:10px;
+    padding:16px 14px 18px 20px; box-shadow:0 2px 0 rgba(0,0,0,.03);
+    transition:transform .12s ease, box-shadow .12s ease, background .2s;
+  }
+  .book:before{content:""; position:absolute; left:0; top:0; bottom:0; width:10px;
+    background:linear-gradient(90deg, rgba(0,0,0,.06), transparent);
+    border-top-left-radius:10px; border-bottom-left-radius:10px;}
+  .book:hover{transform:translateY(-2px); box-shadow:0 6px 14px rgba(0,0,0,.06)}
+  .book .title{font-weight:700; font-size:1.05rem; line-height:1.35; margin:0 0 6px}
+  .book .author{color:var(--sub); font-size:.92rem}
+
   @media (prefers-color-scheme: dark){
     :root{--bg:#0f0e0e; --card:#151515; --ink:#eee; --sub:#aaa; --line:#2a2a2a; --btnbg:#1a1a1a}
-    .btn.primary{background:#152238;border-color:#2a3f66;color:#cfe2ff}
     a.inline{color:#cfe2ff;border-bottom-color:#2a3f66}
     header{background:linear-gradient(180deg,#1a1816,transparent)}
-    .work-link{background:#151515}
-    .work-link:hover{background:#1a1a1a}
+    .book{box-shadow:none}
+    .book:before{background:linear-gradient(90deg, rgba(255,255,255,.06), transparent)}
   }
-
-/* ── 書籍リンク（表紙風） ───────────────────────── */
-.books{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-top:14px}
-.book{
-  position:relative; display:block; text-decoration:none; color:inherit;
-  background:var(--card); border:1.5px solid var(--line); border-radius:10px;
-  padding:16px 14px 18px 20px; box-shadow:0 2px 0 rgba(0,0,0,.03);
-  transition:transform .12s ease, box-shadow .12s ease, background .2s;
-}
-.book:before{ /* 背表紙の雰囲気 */
-  content:""; position:absolute; left:0; top:0; bottom:0; width:10px;
-  background:linear-gradient(90deg, rgba(0,0,0,.06), transparent);
-  border-top-left-radius:10px; border-bottom-left-radius:10px;
-}
-.book:hover{transform:translateY(-2px); box-shadow:0 6px 14px rgba(0,0,0,.06)}
-.book .title{font-weight:700; font-size:1.05rem; line-height:1.35; margin:0 0 6px}
-.book .author{color:var(--sub); font-size:.92rem}
-
-/* ダークモード調整 */
-@media (prefers-color-scheme: dark){
-  .book{box-shadow:none}
-  .book:before{background:linear-gradient(90deg, rgba(255,255,255,.06), transparent)}
-}
-
-  
 </style>
 </head>
 <body>
@@ -74,23 +52,24 @@
     <div class="wrap">
       <h1>気分で選ばない読書地図</h1>
       <p class="tagline">気分語ではなく「事実」で探す、すやネコ文庫の小さなデータ図鑑。</p>
-    <div class="hero">
-  <a class="btn primary" href="./">ホーム</a>
-  <a class="btn" href="https://esortseld.github.io/suyaneko_bunko/">すやネコ文庫（トップ）</a>
-</div>
 
-<!-- 作品リンク：表紙風の長方形カード（タイトル＋著者だけ） -->
-<div class="books">
-  <a class="book" href="works/hanin-ni-tsugu.html">
-    <div class="title">犯人に告ぐ</div>
-    <div class="author">雫井 脩介</div>
-  </a>
-  <a class="book" href="works/onnatachi-no-jihad.html">
-    <div class="title">女たちのジハード</div>
-    <div class="author">篠田 節子</div>
-  </a>
-</div>
+      <div class="hero">
+        <a class="btn" href="./">ホーム</a>
+        <a class="btn" href="https://esortseld.github.io/suyaneko_bunko/">すやネコ文庫（トップ）</a>
+      </div>
 
+      <!-- 作品リンク：表紙風（タイトル＋著者のみ） -->
+      <div class="books">
+        <a class="book" href="works/hanin-ni-tsugu.html">
+          <div class="title">犯人に告ぐ</div>
+          <div class="author">雫井 脩介</div>
+        </a>
+        <a class="book" href="works/onnatachi-no-jihad.html">
+          <div class="title">女たちのジハード</div>
+          <div class="author">篠田 節子</div>
+        </a>
+      </div>
+    </div>
   </header>
 
   <main class="wrap">
@@ -98,20 +77,6 @@
       <article class="card">
         <h3>このサイトについて</h3>
         <p>客観データ（刊行年・出版社・語り/構造 など）で本を探せるように整理しています。主観メモは枠を分けて明記します。</p>
-      </article>
-
-      <article class="card">
-        <h3>作品カード</h3>
-        <div class="works">
-          <a class="work-link" href="works/hanin-ni-tsugu.html">
-            <h4>『犯人に告ぐ』</h4>
-            <div class="meta">雫井脩介／双葉社／2004年7月刊　初出：小説推理（2003年2月号〜2004年2月号）</div>
-          </a>
-          <a class="work-link" href="works/onnatachi-no-jihad.html">
-            <h4>『女たちのジハード』</h4>
-            <div class="meta">篠田節子／集英社／1997年1月刊　受賞：第117回直木賞　初出：小説すばる（1994年7月〜1996年8月）</div>
-          </a>
-        </div>
       </article>
 
       <article class="card">
@@ -126,5 +91,3 @@
   </footer>
 </body>
 </html>
-
-
