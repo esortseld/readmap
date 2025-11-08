@@ -11,7 +11,7 @@
     --book-w:168px;        /* 表紙カードの幅（160〜200pxで調整可） */
     --book-ratio:2/3;      /* 縦長比率 */
     --obi-color:#c8c8c8;   /* 帯の色（グレー） */
-    --obi-thick:8px;      /* 帯の太さ */
+    --obi-thick:8px;       /* 帯の太さ */
     --obi-bottom:65%;      /* 帯の縦位置：下からの距離（%） */
   }
   *{box-sizing:border-box}
@@ -93,22 +93,8 @@
         <a class="btn" href="https://esortseld.github.io/suyaneko_bunko/">すやネコ文庫（トップ）</a>
       </div>
 
-      <!-- 表紙カード（固定サイズ・帯=グレー） -->
-      <div class="books">
-        <a class="book" href="works/hanin-ni-tsugu.html">
-          <div class="title">犯人に告ぐ</div>
-          <div class="author">雫井 脩介</div>
-          <div class="obi"></div>
-        </a>
-        <a class="book" href="works/onnatachi-no-jihad.html">
-          <div class="title">女たちのジハード</div>
-          <div class="author">篠田 節子</div>
-          <div class="obi"></div>
-        </a>
-        <!-- 予備の空枠（増冊時のスペーサー） -->
-        <div class="book empty" aria-hidden="true"><div class="obi"></div></div>
-        <div class="book empty" aria-hidden="true"><div class="obi"></div></div>
-      </div>
+      <!-- 表紙カード（CSVから自動生成） -->
+      <div class="books" id="books"></div>
     </div>
   </header>
 
@@ -129,10 +115,72 @@
   <footer>
     <div class="wrap"><small>© すやネコ文庫 / Reading Map</small></div>
   </footer>
+
+  <!-- CSVパーサ（Papa Parse） -->
+  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js" crossorigin="anonymous"></script>
+  <script>
+    // CSVの場所
+    const CSV_URL = 'data/works.csv';
+
+    // 見出しゆれ対応（日本語ヘッダでもOK）
+    const ALIAS = {
+      slug:   ['slug','スラッグ','整理番号','id','ID'],
+      title:  ['title','作品名','書名'],
+      author: ['author','作者','著者']
+    };
+    const pick = (row, keys) => {
+      for (const k of keys) {
+        const v = row[k];
+        if (v !== undefined && String(v).trim() !== '') return String(v).trim();
+      }
+      return '';
+    };
+
+    // CSVを読み込み → 作品名＋作者だけでカードを生成
+    Papa.parse(CSV_URL, {
+      download: true,
+      header: true,
+      skipEmptyLines: true,
+      encoding: 'utf-8',
+      complete: ({ data }) => {
+        const items = data.map(r => ({
+          slug:   pick(r, ALIAS.slug),
+          title:  pick(r, ALIAS.title),
+          author: pick(r, ALIAS.author)
+        })).filter(x => x.slug && x.title && x.author);
+
+        const wrap = document.getElementById('books');
+        const frag = document.createDocumentFragment();
+
+        items.forEach(it => {
+          const a = document.createElement('a');
+          a.className = 'book';
+          a.href = `works/${it.slug}.html`;
+          a.innerHTML = `
+            <div class="title">${it.title}</div>
+            <div class="author">${it.author}</div>
+            <div class="obi"></div>
+          `;
+          frag.appendChild(a);
+        });
+
+        // 見栄え用の空枠（任意）
+        while (frag.childNodes.length < 6) {
+          const empty = document.createElement('div');
+          empty.className = 'book empty';
+          empty.innerHTML = `<div class="obi"></div>`;
+          frag.appendChild(empty);
+        }
+
+        wrap.textContent = '';
+        wrap.appendChild(frag);
+      },
+      error: (err) => {
+        console.error('CSV読み込みエラー', err);
+        document.getElementById('books').innerHTML =
+          '<p style="color:#b00">データの読み込みに失敗しました。</p>';
+      }
+    });
+  </script>
 </body>
 </html>
-
-
-
-
-
