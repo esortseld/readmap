@@ -1,130 +1,103 @@
-<!doctype html>
-<html lang="ja">
-<head>
+<!doctype html><html lang="ja"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>女たちのジハード｜作品カード - すやネコ文庫</title>
+<title>作品カード – すやネコ文庫</title>
 <style>
-  body{font-family:system-ui,-apple-system,Segoe UI,Roboto,'Noto Sans JP',sans-serif;margin:0;color:#222;background:#faf8f6}
-  .wrap{max-width:880px;margin:0 auto;padding:16px}
-  header{padding:24px 16px;background:linear-gradient(180deg,#f8efe8,transparent)}
-  h1{margin:0 0 6px}
-  .tagline{margin:0 0 8px;color:#555}
-  .breadcrumb a{text-decoration:none;color:#345;border-bottom:1px solid #ccd}
-  .card{background:#fff;border:1px solid #eee;border-radius:12px;padding:16px;margin:14px 0}
-  .grid{display:grid;grid-template-columns:10em 1fr;gap:8px 12px}
-  dt{color:#444}
-  .label{display:inline-block;font-size:.75rem;padding:4px 8px;border-radius:999px;border:1px solid #e3e0dd;background:#faf9f8;color:#555;margin-bottom:8px}
-  .subjective{border-color:#cde2ff;background:#f4f8ff}
-  .subjective .label{border-color:#a6c8ff;background:#eaf2ff;color:#245}
-  .note{font-size:.9rem;color:#555;margin:6px 0 0}
-  .badges{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0 0}
-  .badge{font-size:.75rem;padding:4px 8px;border-radius:999px;border:1px solid #e3e0dd;background:#faf9f8;color:#444}
-  .rating{display:flex;gap:8px;align-items:center}
-  .bar{display:inline-block;width:110px;height:8px;background:#eee;border-radius:6px;overflow:hidden;vertical-align:middle}
-  .fill{height:100%;background:#134a96;width:0}
-  .r-1 .fill{width:20%}.r-2 .fill{width:40%}.r-3 .fill{width:60%}.r-4 .fill{width:80%}.r-5 .fill{width:100%}
-  footer{padding:24px 16px;color:#777}
-  @media (prefers-color-scheme: dark){
-    body{color:#eee;background:#0f0e0e}
-    .card{background:#151515;border-color:#2a2a2a}
-    .label,.badge{border-color:#333;background:#1a1a1a;color:#ccc}
-    .subjective{border-color:#315d9e;background:#0f1622}
-    .subjective .label{border-color:#315d9e;background:#162238;color:#cfe2ff}
-    .bar{background:#2a2a2a}
-    .fill{background:#4e8ef7}
-  }
-</style>
-<!-- 構造化データ（検索向け・任意） -->
-<script type="application/ld+json">
-{
-  "@context":"https://schema.org",
-  "@type":"Book",
-  "name":"女たちのジハード",
-  "author":{"@type":"Person","name":"篠田 節子","birthDate":"1955"},
-  "award":"第117回直木賞",
-  "genre":"群像",
-  "datePublished":"1997-01",
-  "publisher":{"@type":"Organization","name":"集英社"},
-  "isPartOf":{"@type":"CreativeWork","name":"小説すばる","startDate":"1994-07","endDate":"1996-08"}
-}
-</script>
-</head>
-<body>
-<header>
-  <div class="wrap">
-    <h1>女たちのジハード</h1>
-    <p class="tagline">作品カード｜すやネコ文庫</p>
-    <nav class="breadcrumb"><a href="../index.html">← 読書地図にもどる</a></nav>
-  </div>
+:root{--bg:#faf8f6;--card:#fff;--ink:#222;--sub:#555;--line:#eee}
+*{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,"Noto Sans JP",sans-serif;color:var(--ink);background:var(--bg)}
+header{padding:36px 16px;background:linear-gradient(180deg,#f8efe8,transparent)}
+.wrap{max-width:960px;margin:0 auto;padding:0 16px}
+a.link{color:#345;text-decoration:none;border-bottom:1px solid #ccd}
+h1{margin:6px 0 4px;font-size:clamp(1.4rem,3.2vw,2.1rem)}.meta{color:#666;margin:0 0 12px}
+.card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px;margin:14px 0}
+.badges{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0 2px}.badge{font-size:.75rem;padding:4px 8px;border-radius:999px;border:1px solid #e3e0dd;background:#faf9f8;color:#444}
+.grid{display:grid;grid-template-columns:12em 1fr;gap:8px 12px}dt{color:#444}dd{margin:0}
+@media (prefers-color-scheme:dark){:root{--bg:#0f0e0e;--card:#151515;--ink:#eee;--sub:#aaa;--line:#2a2a2a}a.link{color:#cfe2ff;border-bottom-color:#2a3f66}.badge{border-color:#333;background:#1a1a1a;color:#ccc}}
+</style></head><body>
+<header class="wrap">
+  <a class="link" href="../index.html">← 読書地図にもどる</a>
+  <h1 id="title">（作品名）</h1>
+  <p class="meta" id="author">（著者）</p>
 </header>
-
 <main class="wrap">
-  <!-- 客観データ -->
   <section class="card">
-    <span class="label">客観データ</span>
-    <div class="badges">
-      <span class="badge">第117回直木賞</span>
-      <span class="badge">群像（連作短編）</span>
-      <span class="badge">1990年代（バブル崩壊後の職場慣行）</span>
-    </div>
-    <dl class="grid" style="margin-top:8px">
-      <dt>著者</dt><dd>篠田 節子（1955生）</dd>
-      <dt>出版社</dt><dd>集英社</dd>
-      <dt>出版年</dt><dd>1997年1月</dd>
-      <dt>ページ数</dt><dd>469</dd>
-      <dt>初出</dt><dd>「小説すばる」1994年7月号〜1996年8月号</dd>
-      <dt>作者年齢（発表時）</dt><dd>40歳前後</dd>
-      <dt>ジャンル</dt><dd>群像</dd>
-      <dt>テーマ</dt><dd>ジェンダー／仕事と結婚／時代</dd>
-      <dt>地理的舞台</dt><dd>（あとで追記）</dd>
-      <dt>登場人物</dt><dd>（あとで追記）</dd>
-      <dt>あらすじ</dt><dd>（あとで入力）</dd>
-      <dt>キャプション</dt><dd>#読書記録 #女たちのジハード #篠田節子 #群像 #連作短編 #90年代 #職場慣行 #ジェンダー</dd>
-      <dt>リール用文</dt><dd>寿退社が当たり前の時代…（以下、本文引用は避け自分の言葉で）<br>
-      家を買う康子、結婚したが家事能力のない紀子、転身を目論むも苦戦する沙織、えり好みするが選ばれないリサ。多様な女たちの生き方と選択。ユーモラスに描かれながらもリアルで、今の時代でも自分に当てはめて考えさせられる作品です。ぜひ読んでみて。</dd>
-    </dl>
-    <p class="note">※この枠は事実ベースの情報です。</p>
+    <div class="badges" id="badges"></div>
+    <dl class="grid" id="facts"></dl>
+    <p style="color:#777;font-size:.9rem;margin-top:8px">※この枠は事実ベースの情報です。</p>
   </section>
-
-  <!-- 主観メモ（採点・おすすめポイント） -->
-  <section class="card subjective">
-    <span class="label">主観メモ（編集部/筆者の見解）</span>
-    <dl class="grid" style="margin-top:8px">
-      <dt>総評</dt><dd>（あとで記入）</dd>
-      <dt>おすすめ</dt>
-      <dd>
-        <ul>
-          <li>90年代職場慣行×多様な女性像の群像劇</li>
-          <li>ユーモアとリアリティの両立</li>
-          <li>短編を連ねた読みやすさ（連作短編）</li>
-        </ul>
-      </dd>
-
-      <dt>シリアス度</dt>
-      <dd><span class="rating r-3"><span class="bar"><span class="fill"></span></span> 3 / 5</span></dd>
-
-      <dt>リアリティ度</dt>
-      <dd><span class="rating r-5"><span class="bar"><span class="fill"></span></span> 5 / 5</span></dd>
-
-      <dt>展開明瞭度</dt>
-      <dd><span class="rating r-4"><span class="bar"><span class="fill"></span></span> 4 / 5</span></dd>
-
-      <dt>サクサク度</dt>
-      <dd><span class="rating r-3"><span class="bar"><span class="fill"></span></span> 3 / 5</span></dd>
-
-      <dt>心理深度</dt>
-      <dd><span class="rating r-4"><span class="bar"><span class="fill"></span></span> 4 / 5</span></dd>
-
-      <dt>カタルシス度</dt>
-      <dd><span class="rating r-3"><span class="bar"><span class="fill"></span></span> 3 / 5</span></dd>
-
-      <dt>トリック満足度</dt>
-      <dd>— （評価対象外）</dd>
-    </dl>
-    <p class="note">※この枠は個人の感想・評価です。客観データとは区別して掲載しています。</p>
+  <section class="card" id="subjective" style="display:none">
+    <h2 style="margin:0 0 10px;font-size:1.05rem">主観メモ</h2>
+    <dl class="grid" id="ratings"></dl>
   </section>
 </main>
-
 <footer><div class="wrap"><small>© すやネコ文庫</small></div></footer>
-</body>
-</html>
+
+<!-- CSVパーサ -->
+<script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+<script>
+// 作品の識別子（このページのファイル名から取得）
+const slug = location.pathname.split('/').pop().replace(/\.html$/,'');
+// CSVの場所
+const CSV_URL = '../data/works.csv';
+// 列名エイリアス（日本語OK）
+const A = {
+  slug:['slug','スラッグ','整理番号'], title:['title','作品名','書名'], author:['author','作者','著者'],
+  publisher:['出版社','publisher'], published:['刊行','刊行年','発行','published'], pages:['ページ数','pages'],
+  first_pub:['初出','初出誌','初出期','first_pub'], genre:['作品ジャンル','ジャンル','genre'], type:['作品タイプ','type'],
+  awards:['受賞歴','awards'], synopsis:['あらすじ','synopsis'], characters:['登場人物','characters'],
+  setting:['地理的舞台','舞台','setting'], era:['時代','era'], themes:['テーマ','themes'],
+  caption:['キャプション','caption'], reel:['リール','reel'],
+  seriousness:['シリアス度'], reality:['リアリティ度'], clarity:['展開明瞭度'], pace:['サクサク度'],
+  psych:['心理深度'], catharsis:['カタルシス度'], trick:['トリック満足度']
+};
+const pick=(r,ks)=>{for(const k of ks){if(r[k]&&String(r[k]).trim()) return String(r[k]).trim()} return ''};
+const split=(t)=>!t?[]:String(t).split(/[、,／\/|\s]+/).map(s=>s.trim()).filter(Boolean);
+
+Papa.parse(CSV_URL,{download:true,header:true,skipEmptyLines:true,encoding:'utf-8',
+ complete:({data})=>{
+  const row = data.find(x => pick(x,A.slug) === slug);
+  if(!row){ document.querySelector('main').innerHTML='<section class="card">データが見つかりません（slug:'+slug+'）。</section>'; return; }
+
+  // タイトル・著者
+  document.getElementById('title').textContent  = pick(row,A.title)  || '(無題)';
+  document.getElementById('author').textContent = pick(row,A.author) || '';
+
+  // バッジ（受賞/ジャンル/時代/テーマ）
+  const badges = [...split(pick(row,A.awards)), ...split(pick(row,A.genre)), ...split(pick(row,A.era)), ...split(pick(row,A.themes))];
+  document.getElementById('badges').innerHTML = badges.map(v=>`<span class="badge">${v}</span>`).join('');
+
+  // 事実データ
+  const facts = [
+    ['出版社', pick(row,A.publisher)],
+    ['刊行', pick(row,A.published)],
+    ['ページ数', pick(row,A.pages)],
+    ['初出', pick(row,A.first_pub)],
+    ['作品タイプ', pick(row,A.type)],
+    ['地理的舞台', pick(row,A.setting)],
+    ['登場人物', pick(row,A.characters)],
+    ['あらすじ', pick(row,A.synopsis)],
+    ['キャプション', pick(row,A.caption)],
+    ['リール用文', pick(row,A.reel)]
+  ].filter(([,v])=>v);
+  document.getElementById('facts').innerHTML = facts.map(([k,v])=>`<dt>${k}</dt><dd>${v}</dd>`).join('');
+
+  // 主観メモ（数値がある項目だけ）
+  const ratings = [
+    ['シリアス度', pick(row,A.seriousness)],
+    ['リアリティ度', pick(row,A.reality)],
+    ['展開明瞭度', pick(row,A.clarity)],
+    ['サクサク度', pick(row,A.pace)],
+    ['心理深度', pick(row,A.psych)],
+    ['カタルシス度', pick(row,A.catharsis)],
+    ['トリック満足度', pick(row,A.trick)]
+  ].filter(([,v])=>v);
+  if(ratings.length){
+    document.getElementById('subjective').style.display='';
+    document.getElementById('ratings').innerHTML = ratings.map(([k,v])=>`<dt>${k}</dt><dd>${v}</dd>`).join('');
+  }
+
+  // タブのタイトルも差し替え
+  document.title = `${pick(row,A.title)} – 作品カード | すやネコ文庫`;
+ }
+});
+</script>
+</body></html>
