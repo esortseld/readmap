@@ -1,0 +1,111 @@
+<!doctype html><html lang="ja"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>作品カード – すやネコ文庫</title>
+<style>
+:root{--bg:#faf8f6;--card:#fff;--ink:#222;--sub:#555;--line:#eee}
+*{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,"Noto Sans JP",sans-serif;color:var(--ink);background:var(--bg)}
+header{padding:36px 16px;background:linear-gradient(180deg,#f8efe8,transparent)}
+.wrap{max-width:960px;margin:0 auto;padding:0 16px}
+a.link{color:#345;text-decoration:none;border-bottom:1px solid #ccd}
+h1{margin:6px 0 4px;font-size:clamp(1.4rem,3.2vw,2.1rem)}.meta{color:#666;margin:0 0 12px}
+.card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px;margin:14px 0}
+.badges{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0 2px}.badge{font-size:.75rem;padding:4px 8px;border-radius:999px;border:1px solid #e3e0dd;background:#faf9f8;color:#444}
+.grid{display:grid;grid-template-columns:12em 1fr;gap:8px 12px}dt{color:#444}dd{margin:0}
+@media (prefers-color-scheme:dark){:root{--bg:#0f0e0e;--card:#151515;--ink:#eee;--sub:#aaa;--line:#2a2a2a}a.link{color:#cfe2ff;border-bottom-color:#2a3f66}.badge{border-color:#333;background:#1a1a1a;color:#ccc}}
+</style></head><body>
+<header class="wrap">
+  <a class="link" href="../index.html">← 読書地図にもどる</a>
+  <h1 id="title">（作品名）</h1>
+  <p class="meta" id="author">（著者）</p>
+</header>
+<main class="wrap">
+  <section class="card">
+    <div class="badges" id="badges"></div>
+    <dl class="grid" id="facts"></dl>
+    <p style="color:#777;font-size:.9rem;margin-top:8px">※この枠は事実ベースの情報です。</p>
+  </section>
+  <section class="card" id="subjective" style="display:none">
+    <h2 style="margin:0 0 10px;font-size:1.05rem">主観メモ</h2>
+    <dl class="grid" id="ratings"></dl>
+  </section>
+</main>
+<footer><div class="wrap"><small>© すやネコ文庫</small></div></footer>
+
+<script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+<script>
+const CSV_URL = '../data/works.csv';
+// このページの slug（ファイル名から取得）
+const slug = location.pathname.split('/').pop().replace(/\.html$/,'');
+// 英数字以外は除去して比較（保険）
+const clean = s => String(s).replace(/[^A-Za-z0-9]/g,'').trim();
+
+const A = {
+  slug:['slug','Slug','SLUG'],
+  title:['title','作品名','書名'],
+  author:['author','作者','著者'],
+  publisher:['publisher','出版社'],
+  published:['published','刊行','刊行年','発行','出版年'],
+  pages:['pages','ページ','ページ数'],
+  first_pub:['first_pub','初出','初出誌','初出期'],
+  genre:['genre','作品ジャンル','ジャンル'],
+  type:['type','作品タイプ','タイプ'],
+  awards:['awards','受賞歴','受賞'],
+  synopsis:['synopsis','あらすじ','梗概'],
+  characters:['characters','登場人物'],
+  setting:['setting','地理的舞台','舞台','場所'],
+  era:['era','時代'],
+  themes:['themes','テーマ','キーワード'],
+  caption:['caption','キャプション'],
+  reel:['reel','リール','リール用文'],
+  seriousness:['シリアス度'], reality:['リアリティ度'],
+  clarity:['展開明瞭度'], pace:['サクサク度'],
+  psych:['心理深度'], catharsis:['カタルシス度'], trick:['トリック満足度']
+};
+const pick=(r,ks)=>{for(const k of ks){if(r[k]&&String(r[k]).trim())return String(r[k]).trim()}return''};
+const split=t=>!t?[]:String(t).split(/[、,，,／\/|\s]+/).map(s=>s.trim()).filter(Boolean);
+
+Papa.parse(CSV_URL,{download:true,header:true,skipEmptyLines:true,encoding:'utf-8',
+ complete:({data})=>{
+  const row = data.find(x => clean(pick(x,A.slug)) === clean(slug));
+  if(!row){ document.querySelector('main').innerHTML = '<section class="card">データが見つかりません（slug: '+slug+'）。</section>'; return; }
+
+  const title = pick(row,A.title)||'(無題)';
+  const author = pick(row,A.author)||'';
+  document.getElementById('title').textContent = title;
+  document.getElementById('author').textContent = author;
+
+  const badges = [...split(pick(row,A.awards)), ...split(pick(row,A.genre)), ...split(pick(row,A.era)), ...split(pick(row,A.themes))];
+  document.getElementById('badges').innerHTML = badges.map(v=>`<span class="badge">${v}</span>`).join('');
+
+  const facts = [
+    ['出版社', pick(row,A.publisher)],
+    ['刊行', pick(row,A.published)],
+    ['ページ数', pick(row,A.pages)],
+    ['初出', pick(row,A.first_pub)],
+    ['作品タイプ', pick(row,A.type)],
+    ['地理的舞台', pick(row,A.setting)],
+    ['登場人物', pick(row,A.characters)],
+    ['あらすじ', pick(row,A.synopsis)],
+    ['キャプション', pick(row,A.caption)],
+    ['リール用文', pick(row,A.reel)],
+  ].filter(([,v])=>v);
+  document.getElementById('facts').innerHTML = facts.map(([k,v])=>`<dt>${k}</dt><dd>${v}</dd>`).join('');
+
+  const ratings = [
+    ['シリアス度', pick(row,A.seriousness)],
+    ['リアリティ度', pick(row,A.reality)],
+    ['展開明瞭度', pick(row,A.clarity)],
+    ['サクサク度', pick(row,A.pace)],
+    ['心理深度', pick(row,A.psych)],
+    ['カタルシス度', pick(row,A.catharsis)],
+    ['トリック満足度', pick(row,A.trick)],
+  ].filter(([,v])=>v);
+  if(ratings.length){
+    document.getElementById('subjective').style.display='';
+    document.getElementById('ratings').innerHTML = ratings.map(([k,v])=>`<dt>${k}</dt><dd>${v}</dd>`).join('');
+  }
+
+  document.title = `${title} – 作品カード | すやネコ文庫`;
+ }});
+</script>
+</body></html>
